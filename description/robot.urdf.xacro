@@ -1,7 +1,121 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- Example link -->
-    <link name="base_link"></link>
+    <!-- Define Materials -->
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1" />
+    </material>
+
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1" />
+    </material>
+
+    <material name="black">
+        <color rgba="0 0 0 1" />
+    </material>
+
+    <!-- Base Link -->
+    <link name="base_link">
+        <!-- No geometry, just a reference point -->
+    </link>
+
+    <!-- Fixed Joint to attach the chassis to the base -->
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="chassis" />
+        <origin xyz="0.0 0 0.075" />
+    </joint>
+
+    <!-- Chassis Link -->
+    <link name="chassis">
+        <visual>
+            <origin xyz="0.15 0 0.075"/>
+            <geometry>
+                <box size="0.3 0.3 0.15"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+
+    <!-- Adding wheels as additional links and joints -->
+    <!-- Front Left Wheel -->
+    <link name="front_left_wheel">
+        <visual>
+            <origin xyz="0.15 0.15 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint name="front_left_wheel_joint" type="revolute">
+        <parent link="chassis"/>
+        <child link="front_left_wheel"/>
+        <origin xyz="0.15 0.15 0.05"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="50.0" velocity="1.0" lower="0.0" upper="1.0"/>
+    </joint>
+
+    <!-- Front Right Wheel -->
+    <link name="front_right_wheel">
+        <visual>
+            <origin xyz="0.15 -0.15 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint name="front_right_wheel_joint" type="revolute">
+        <parent link="chassis"/>
+        <child link="front_right_wheel"/>
+        <origin xyz="0.15 -0.15 0.05"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="50.0" velocity="1.0" lower="0.0" upper="1.0"/>
+    </joint>
+
+    <!-- Back Left Wheel -->
+    <link name="back_left_wheel">
+        <visual>
+            <origin xyz="-0.15 0.15 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint name="back_left_wheel_joint" type="revolute">
+        <parent link="chassis"/>
+        <child link="back_left_wheel"/>
+        <origin xyz="-0.15 0.15 0.05"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="50.0" velocity="1.0" lower="0.0" upper="1.0"/>
+    </joint>
+
+    <!-- Back Right Wheel -->
+    <link name="back_right_wheel">
+        <visual>
+            <origin xyz="-0.15 -0.15 0.05"/>
+            <geometry>
+                <cylinder radius="0.05" length="0.02"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint name="back_right_wheel_joint" type="revolute">
+        <parent link="chassis"/>
+        <child link="back_right_wheel"/>
+        <origin xyz="-0.15 -0.15 0.05"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="50.0" velocity="1.0" lower="0.0" upper="1.0"/>
+    </joint>
 
 </robot>
